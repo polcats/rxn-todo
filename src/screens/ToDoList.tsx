@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { appContext, Item } from '../models/';
@@ -7,6 +7,7 @@ import { HomeStackProp } from './NavTypes';
 
 const ToDoList: React.FC<HomeStackProp> = ({ navigation }) => {
   const store = useContext(appContext);
+
   return (
     <FlatList
       style={styles.list}

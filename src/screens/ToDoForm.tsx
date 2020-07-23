@@ -1,4 +1,4 @@
-import React, { useContext, useState, SyntheticEvent } from 'react';
+import React, { useContext, useState, useEffect, SyntheticEvent } from 'react';
 import { observer } from 'mobx-react-lite';
 import {
   StyleSheet,
@@ -7,6 +7,7 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import { appContext } from '../models';
 import { RootStackProp } from '../screens/';
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
@@ -44,6 +45,17 @@ const ToDoForm: React.FC<TodoFormProps> = ({
     item?.setDueDate(selectedDate.toDateString());
   };
 
+  useFocusEffect(
+    React.useCallback(() => {
+      return () => {
+        if (!appStore.isCurrentItemValid) {
+          appStore.delete(appStore.currentItem);
+          appStore.setCurrentItem('');
+        }
+      };
+    }, []),
+  );
+
   return (
     <>
       <KeyboardAvoidingView
@@ -59,15 +71,22 @@ const ToDoForm: React.FC<TodoFormProps> = ({
             style={styles.inputText}
             placeholder="To do title"
             value={item?.title}
-            onChangeText={(text) => item?.setTitle(text)}
+            onChangeText={(text) => {
+              item?.setTitle(text);
+            }}
           />
         </View>
 
         <View style={styles.inputView}>
           <Text style={styles.inputLabel}>Description</Text>
-          <TextInput style={styles.inputText} placeholder="To do description">
-            {item?.desc}
-          </TextInput>
+          <TextInput
+            style={styles.inputText}
+            placeholder="To do description"
+            value={item?.desc}
+            onChangeText={(text) => {
+              item?.setDesc(text);
+            }}
+          />
         </View>
 
         <TouchableOpacity onPress={showPicker} style={styles.inputView}>
@@ -75,7 +94,9 @@ const ToDoForm: React.FC<TodoFormProps> = ({
             <Text style={styles.inputError}>Invalid due date</Text>
           )}
           <Text style={styles.inputLabel}>Due Date</Text>
-          <Text style={styles.inputText}>{`${date}`}</Text>
+          <Text style={styles.inputText}>{`${new Date(
+            date,
+          ).toDateString()}`}</Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
 

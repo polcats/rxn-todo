@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import 'mobx-react-lite/batchingForReactDom';
 import { observer } from 'mobx-react-lite';
 import { StatusBar } from 'expo-status-bar';
