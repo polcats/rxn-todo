@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import {
   StyleSheet,
@@ -6,10 +6,12 @@ import {
   View,
   KeyboardAvoidingView,
   Platform,
+  Button,
 } from 'react-native';
 import { appContext } from '../models';
 import { RootStackProp } from '../screens/';
-import { TextInput } from 'react-native-gesture-handler';
+import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import Item from '../models/Item';
 
 type TodoFormProps = {
@@ -19,7 +21,23 @@ type TodoFormProps = {
 
 const ToDoForm: React.FC<TodoFormProps> = ({ item, navigation }) => {
   const appStore = useContext(appContext);
+
   const itemToModify = item === undefined ? new Item({}) : item;
+
+  const [date, setDate] = useState(
+    item === undefined ? new Date() : new Date(itemToModify.dueDate),
+  );
+  const [showDatePicker, setVisibility] = useState(false);
+
+  const showPicker = () => {
+    setVisibility(true);
+  };
+
+  const onChange = (event: any, newDate: any) => {
+    const selectedDate = newDate || date;
+    setVisibility(false);
+    setDate(selectedDate);
+  };
 
   return (
     <>
@@ -39,11 +57,22 @@ const ToDoForm: React.FC<TodoFormProps> = ({ item, navigation }) => {
           </TextInput>
         </View>
 
-        <View>
+        <TouchableOpacity onPress={showPicker}>
           <Text>Due Date</Text>
-          <TextInput placeholder="To do title"></TextInput>
-        </View>
+          <Text>{`${date}`}</Text>
+        </TouchableOpacity>
       </KeyboardAvoidingView>
+
+      {showDatePicker && (
+        <DateTimePicker
+          testID="dateTimePicker"
+          value={date}
+          mode="date"
+          is24Hour={true}
+          display="default"
+          onChange={onChange}
+        />
+      )}
     </>
   );
 };
