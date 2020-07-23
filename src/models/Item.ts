@@ -7,15 +7,11 @@ class Item extends Model({
   id: prop<string>(() => uuidv4()),
   isToModify: prop<boolean>(true),
   isDone: prop<boolean>(false),
-  text: prop<string>(''),
+  title: prop<string>(''),
+  desc: prop<string>(''),
   dueDate: prop<string>(''),
   doneDate: prop<string>(''),
 }) {
-  @computed
-  get validText() {
-    return this.text.trim().length !== 0;
-  }
-
   @modelAction
   toggleCheck = () => {
     this.isDone = !this.isDone;
@@ -27,8 +23,13 @@ class Item extends Model({
   };
 
   @modelAction
-  setText = (text: string) => {
-    this.text = text;
+  setTitle = (title: string) => {
+    this.title = title;
+  };
+
+  @modelAction
+  setDesc = (desc: string) => {
+    this.desc = desc;
   };
 }
 

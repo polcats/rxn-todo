@@ -30,9 +30,19 @@ const createAppStore = (): ToDoList => {
   });
 
   // Add dummy data
-  store.add(new Item({ text: 'Create a new app to track transactions' }));
-  store.add(new Item({ text: 'Monitor market prices' }));
-  store.add(new Item({ text: 'Wash the dishes' }));
+  store.add(
+    new Item({
+      title: 'Create a new app to track transactions',
+      desc: 'Produce a Python app that can automatically track transactions.',
+    }),
+  );
+  store.add(
+    new Item({
+      title: 'Monitor market prices',
+      desc: 'Check if need market items go on sale.',
+    }),
+  );
+  store.add(new Item({ title: 'Wash the dishes' }));
 
   registerRootStore(store);
   return store;
