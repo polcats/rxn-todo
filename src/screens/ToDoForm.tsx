@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, SyntheticEvent } from 'react';
 import { observer } from 'mobx-react-lite';
 import {
   StyleSheet,
@@ -6,8 +6,6 @@ import {
   View,
   KeyboardAvoidingView,
   Platform,
-  Button,
-  NativeSyntheticEvent,
 } from 'react-native';
 import { appContext } from '../models';
 import { RootStackProp } from '../screens/';
@@ -34,7 +32,10 @@ const ToDoForm: React.FC<TodoFormProps> = ({ item, navigation }) => {
     setVisibility(true);
   };
 
-  const onChange = (event: any, newDate: any) => {
+  const onChange = (
+    event: SyntheticEvent<{ timestamp: number }>,
+    newDate?: Date,
+  ) => {
     const selectedDate = newDate || date;
     setVisibility(false);
     setDate(selectedDate);
