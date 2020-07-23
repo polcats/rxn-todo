@@ -41,6 +41,9 @@ const ItemDisplay: React.FC<ItemDisplayProps> = ({ item, navigation }) => {
         <Text numberOfLines={1} style={styles.itemTitle}>
           {item.title}
         </Text>
+        <Text numberOfLines={1} style={styles.itemDesc}>
+          {new Date(item.dueDate).toDateString()}
+        </Text>
         {!!item.desc && (
           <Text numberOfLines={1} style={styles.itemDesc}>
             {item.desc}
@@ -58,8 +61,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#fff',
-    marginTop: 10,
     borderRadius: 5,
+    marginBottom: 20,
   },
   checkbox: {
     flex: 1,
