@@ -1,2 +1,2 @@
-export { default as AppContext } from './List';
+export { default as appContext } from './List';
 export { default as Item } from './Item';
