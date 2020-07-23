@@ -17,6 +17,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",
+    "@types/react-native": "^0.63.1",
     "babel-preset-expo": "~8.1.0",
     "eslint": "7.2.0",
     "eslint-config-airbnb": "18.2.0",
@@ -26,6 +27,9 @@
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "7.20.0",
     "eslint-plugin-react-hooks": "4.0.0",
+    "mobx": "^5.15.4",
+    "mobx-keystone": "0.41.0",
+    "mobx-react-lite": "^2.0.7",
     "prettier": "^2.0.5",
     "typescript": "^3.9.7"
   },
