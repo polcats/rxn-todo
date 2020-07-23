@@ -9,6 +9,7 @@ const ToDoList: React.FC<HomeStackProp> = ({ navigation }) => {
   const store = useContext(appContext);
   return (
     <FlatList
+      style={styles.list}
       data={Array.from(store.items)}
       renderItem={({ item }) => {
         return <ItemDisplay item={item[1]} navigation={navigation} />;
@@ -17,5 +18,13 @@ const ToDoList: React.FC<HomeStackProp> = ({ navigation }) => {
     />
   );
 };
+
+const styles = StyleSheet.create({
+  list: {
+    flex: 1,
+    padding: 10,
+    backgroundColor: '#eee',
+  },
+});
 
 export default observer(ToDoList);
