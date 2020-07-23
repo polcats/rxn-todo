@@ -7,6 +7,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   Button,
+  NativeSyntheticEvent,
 } from 'react-native';
 import { appContext } from '../models';
 import { RootStackProp } from '../screens/';
