@@ -8,11 +8,40 @@ import {
   registerRootStore,
 } from 'mobx-keystone';
 import Item from './Item';
+import { observable, computed } from 'mobx';
 
 @model('todoApp/ToDoList')
 class ToDoList extends Model({
   items: prop_mapObject<Map<string, Item>>(),
 }) {
+  @observable
+  currentItem: string = '';
+
+  @computed
+  get isCurrentItemValid() {
+    const x = this.items.get(this.currentItem);
+    console.log('isCurrentVaid: ' + x?.title + ' ' + x?.id);
+    return x?.validLabel && x?.validDate;
+  }
+
+  @modelAction
+  setCurrentItem = (id: string) => {
+    this.currentItem = id;
+  };
+
+  // @modelAction
+  // showCurrentItemError = () => {
+  //   this.items.get(this.currentItem)?.toggleError();
+  // };
+
+  @modelAction
+  createNew = () => {
+    const newItem = new Item({ dueDate: new Date().toString() });
+    this.items.set(newItem.id, newItem);
+    console.log(newItem.id);
+    this.currentItem = newItem.id;
+  };
+
   @modelAction
   add = (item: Item) => {
     this.items.set(item.id, item);

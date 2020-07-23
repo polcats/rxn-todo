@@ -72,8 +72,7 @@ const styles = StyleSheet.create({
   },
   itemTitle: {
     flex: 1,
-    fontWeight: 'bold',
-    fontSize: 22,
+    fontSize: 20,
   },
   itemDesc: {
     flex: 1,

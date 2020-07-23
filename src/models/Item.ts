@@ -1,5 +1,5 @@
 import { model, Model, modelAction, prop } from 'mobx-keystone';
-import { computed } from 'mobx';
+import { computed, observable } from 'mobx';
 import { v4 as uuidv4 } from 'uuid';
 
 @model('todoApp/Item')
@@ -12,6 +12,18 @@ class Item extends Model({
   dueDate: prop<string>(''),
   doneDate: prop<string>(''),
 }) {
+  @computed
+  get validLabel() {
+    return this.title.trim().length !== 0;
+  }
+
+  @computed
+  get validDate() {
+    return this.dueDate === ''
+      ? false
+      : new Date(this.dueDate) >= new Date(new Date().toDateString());
+  }
+
   @modelAction
   toggleCheck = () => {
     this.isDone = !this.isDone;
@@ -30,6 +42,11 @@ class Item extends Model({
   @modelAction
   setDesc = (desc: string) => {
     this.desc = desc;
+  };
+
+  @modelAction
+  setDueDate = (date: string) => {
+    this.dueDate = date;
   };
 }
 

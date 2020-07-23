@@ -14,18 +14,21 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import Item from '../models/Item';
 
 type TodoFormProps = {
-  item?: Item;
+  key?: string;
+  invalidTitle: boolean;
+  invalidDate: boolean;
   navigation: RootStackProp;
 };
 
-const ToDoForm: React.FC<TodoFormProps> = ({ item, navigation }) => {
+const ToDoForm: React.FC<TodoFormProps> = ({
+  key,
+  invalidTitle,
+  invalidDate,
+  navigation,
+}) => {
   const appStore = useContext(appContext);
-
-  const itemToModify = item === undefined ? new Item({}) : item;
-
-  const [date, setDate] = useState(
-    item === undefined ? new Date() : new Date(itemToModify.dueDate),
-  );
+  const item = appStore.items.get(appStore.currentItem);
+  const date = !item?.dueDate ? new Date() : new Date(item.dueDate);
   const [showDatePicker, setVisibility] = useState(false);
 
   const showPicker = () => {
@@ -38,7 +41,7 @@ const ToDoForm: React.FC<TodoFormProps> = ({ item, navigation }) => {
   ) => {
     const selectedDate = newDate || date;
     setVisibility(false);
-    setDate(selectedDate);
+    item?.setDueDate(selectedDate.toDateString());
   };
 
   return (
@@ -47,21 +50,30 @@ const ToDoForm: React.FC<TodoFormProps> = ({ item, navigation }) => {
         style={styles.keyboard}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
-        <View>
-          <Text>Title</Text>
-          <TextInput placeholder="To do title">{itemToModify.title}</TextInput>
+        <View style={styles.inputView}>
+          <Text style={styles.inputLabel}>Title</Text>
+          {invalidTitle && <Text style={styles.inputError}>Invalid title</Text>}
+          <TextInput
+            style={styles.inputText}
+            placeholder="To do title"
+            value={item?.title}
+            onChangeText={(text) => item?.setTitle(text)}
+          />
         </View>
 
-        <View>
-          <Text>Description</Text>
-          <TextInput placeholder="To do description">
-            {itemToModify.desc}
+        <View style={styles.inputView}>
+          <Text style={styles.inputLabel}>Description</Text>
+          <TextInput style={styles.inputText} placeholder="To do description">
+            {item?.desc}
           </TextInput>
         </View>
 
-        <TouchableOpacity onPress={showPicker}>
-          <Text>Due Date</Text>
-          <Text>{`${date}`}</Text>
+        <TouchableOpacity onPress={showPicker} style={styles.inputView}>
+          {invalidDate && (
+            <Text style={styles.inputError}>Invalid due date</Text>
+          )}
+          <Text style={styles.inputLabel}>Due Date</Text>
+          <Text style={styles.inputText}>{`${date}`}</Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
 
@@ -82,6 +94,26 @@ const ToDoForm: React.FC<TodoFormProps> = ({ item, navigation }) => {
 const styles = StyleSheet.create({
   keyboard: {
     flex: 1,
+    flexDirection: 'column',
+    alignContent: 'flex-start',
+    padding: 10,
+    backgroundColor: '#eee',
+  },
+  inputView: {
+    backgroundColor: '#fff',
+    marginTop: 10,
+    borderRadius: 5,
+    padding: 10,
+  },
+  inputLabel: {
+    fontSize: 20,
+  },
+  inputText: {
+    fontSize: 15,
+    color: '#555',
+  },
+  inputError: {
+    color: 'red',
   },
 });
 
