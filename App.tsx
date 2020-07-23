@@ -13,7 +13,11 @@ const App: React.FC = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={ToDoList} />
+        <Stack.Screen
+          name="Home"
+          options={{ title: 'Todo' }}
+          component={ToDoList}
+        />
         <Stack.Screen name="Details" component={ToDoEdit} />
         <Stack.Screen name="Edit" component={ToDoDetail} />
       </Stack.Navigator>
