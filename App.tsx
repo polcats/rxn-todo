@@ -5,7 +5,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Button, Text, View, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { ToDoList, ToDoEdit, ToDoDetail } from './src/screens/';
+import { ToDoList, ToDoForm, ToDoDetail } from './src/screens/';
 
 const Stack = createStackNavigator();
 
@@ -15,18 +15,18 @@ const App: React.FC = () => {
       <Stack.Navigator>
         <Stack.Screen
           name="Home"
-          options={{
-            title: 'Todo',
+          options={({ navigation }) => ({
+            title: 'To-do Items',
             headerRight: () => (
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.navigate('Form')}>
                 <Text style={styles.createButton}>Create</Text>
               </TouchableOpacity>
             ),
-          }}
+          })}
           component={ToDoList}
         />
-        <Stack.Screen name="Details" component={ToDoEdit} />
-        <Stack.Screen name="Edit" component={ToDoDetail} />
+        <Stack.Screen name="Form" component={ToDoForm} />
+        <Stack.Screen name="Details" component={ToDoDetail} />
       </Stack.Navigator>
     </NavigationContainer>
   );
