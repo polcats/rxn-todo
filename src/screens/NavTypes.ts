@@ -10,7 +10,8 @@ type StackParamList = {
 type HomeStackProp = StackScreenProps<StackParamList, 'Home'>;
 type DetailStackProp = StackScreenProps<StackParamList, 'Detail'>;
 type EditStackProp = StackScreenProps<StackParamList, 'Edit'>;
-type RootStackProp = StackNavigationProp<StackParamList>;
+
+type RootStackProp = StackNavigationProp<StackParamList, 'Home'>;
 
 export type {
   HomeStackProp,

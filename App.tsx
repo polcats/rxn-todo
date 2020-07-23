@@ -13,7 +13,7 @@ const App: React.FC = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="To-do List" component={ToDoList} />
+        <Stack.Screen name="Home" component={ToDoList} />
         <Stack.Screen name="Details" component={ToDoEdit} />
         <Stack.Screen name="Edit" component={ToDoDetail} />
       </Stack.Navigator>
