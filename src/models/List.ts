@@ -29,11 +29,6 @@ class ToDoList extends Model({
     this.currentItem = id;
   };
 
-  // @modelAction
-  // showCurrentItemError = () => {
-  //   this.items.get(this.currentItem)?.toggleError();
-  // };
-
   @modelAction
   createNew = () => {
     const newItem = new Item({ dueDate: new Date().toString() });

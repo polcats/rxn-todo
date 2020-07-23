@@ -48,7 +48,7 @@ const App: React.FC = () => {
                     return;
                   }
 
-                  alert('invalid!');
+                  appStore.items.get(appStore.currentItem)?.toggleShowError();
                 }}
               >
                 <Text style={[styles.saveButton, styles.headerButton]}>

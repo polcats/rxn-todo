@@ -52,7 +52,9 @@ const ToDoForm: React.FC<TodoFormProps> = ({
       >
         <View style={styles.inputView}>
           <Text style={styles.inputLabel}>Title</Text>
-          {invalidTitle && <Text style={styles.inputError}>Invalid title</Text>}
+          {item?.showError && !item.validLabel && (
+            <Text style={styles.inputError}>Invalid title</Text>
+          )}
           <TextInput
             style={styles.inputText}
             placeholder="To do title"
@@ -69,7 +71,7 @@ const ToDoForm: React.FC<TodoFormProps> = ({
         </View>
 
         <TouchableOpacity onPress={showPicker} style={styles.inputView}>
-          {invalidDate && (
+          {item?.showError && !item.validDate && (
             <Text style={styles.inputError}>Invalid due date</Text>
           )}
           <Text style={styles.inputLabel}>Due Date</Text>

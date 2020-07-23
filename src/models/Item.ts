@@ -12,6 +12,14 @@ class Item extends Model({
   dueDate: prop<string>(''),
   doneDate: prop<string>(''),
 }) {
+  @observable
+  showError = false;
+
+  @modelAction
+  toggleShowError = () => {
+    this.showError = !this.showError;
+  };
+
   @computed
   get validLabel() {
     return this.title.trim().length !== 0;
