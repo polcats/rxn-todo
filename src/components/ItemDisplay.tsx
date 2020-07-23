@@ -20,7 +20,9 @@ type ItemDisplayProps = {
 };
 
 const ItemDisplay: React.FC<ItemDisplayProps> = ({ item, navigation }) => {
-  const appStore = useContext(appContext);
+  const navigate = () => {
+    navigation.navigate('Detail', { id: item.id });
+  };
 
   return (
     <View style={styles.itemView}>
@@ -32,12 +34,7 @@ const ItemDisplay: React.FC<ItemDisplayProps> = ({ item, navigation }) => {
         }}
       />
 
-      <TouchableOpacity
-        style={styles.itemText}
-        onPress={() => {
-          // navigation.navigate('Detail', { id: item.id });
-        }}
-      >
+      <TouchableOpacity style={styles.itemText} onPress={navigate}>
         <Text numberOfLines={1} style={styles.itemTitle}>
           {item.title}
         </Text>

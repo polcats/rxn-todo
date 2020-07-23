@@ -9,24 +9,12 @@ import {
 } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import { appContext } from '../models';
-import { RootStackProp } from '../screens/';
+import { FormStackProp } from '../screens/';
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Item from '../models/Item';
 
-type TodoFormProps = {
-  key?: string;
-  invalidTitle: boolean;
-  invalidDate: boolean;
-  navigation: RootStackProp;
-};
-
-const ToDoForm: React.FC<TodoFormProps> = ({
-  key,
-  invalidTitle,
-  invalidDate,
-  navigation,
-}) => {
+const ToDoForm: React.FC<FormStackProp> = ({ navigation }) => {
   const appStore = useContext(appContext);
   const item = appStore.items.get(appStore.currentItem);
   const date = !item?.dueDate ? new Date() : new Date(item.dueDate);

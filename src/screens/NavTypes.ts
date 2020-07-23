@@ -4,12 +4,12 @@ import { StackNavigationProp } from '@react-navigation/stack';
 type StackParamList = {
   Home: undefined;
   Detail: { id: string };
-  ToDoForm: { id: string };
+  Form: { id: string };
 };
 
 type HomeStackProp = StackScreenProps<StackParamList, 'Home'>;
 type DetailStackProp = StackScreenProps<StackParamList, 'Detail'>;
-type FormStackProp = StackScreenProps<StackParamList, 'ToDoForm'>;
+type FormStackProp = StackScreenProps<StackParamList, 'Form'>;
 
 type RootStackProp = StackNavigationProp<StackParamList, 'Home'>;
 

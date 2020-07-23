@@ -24,7 +24,7 @@ const App: React.FC = () => {
               <TouchableOpacity
                 onPress={() => {
                   appStore.createNew();
-                  navigation.navigate('Form');
+                  navigation.navigate('Form', { id: undefined });
                 }}
               >
                 <Text style={[styles.createButton, styles.headerButton]}>
@@ -38,13 +38,13 @@ const App: React.FC = () => {
         <Stack.Screen
           name="Form"
           options={({ route, navigation }) => ({
-            title: 'To-do Items',
+            title: 'To-do Item',
             headerRight: () => (
               <TouchableOpacity
                 onPress={() => {
                   console.log('TESTSTST');
                   if (appStore.isCurrentItemValid) {
-                    navigation.navigate('Home');
+                    navigation.pop();
                     return;
                   }
 
@@ -59,7 +59,28 @@ const App: React.FC = () => {
           })}
           component={ToDoForm}
         />
-        <Stack.Screen name="Details" component={ToDoDetail} />
+        <Stack.Screen
+          name="Detail"
+          options={({ route, navigation }) => ({
+            title: 'To-do Details',
+            headerRight: () => (
+              <TouchableOpacity
+                onPress={(props) => {
+                  // navigation.navigate('Form', {
+                  //   id: navigation.,
+                  // });
+                  navigation.push('Form', { id: appStore.currentItem });
+                  // navigation.
+                }}
+              >
+                <Text style={[styles.editButton, styles.headerButton]}>
+                  Edit
+                </Text>
+              </TouchableOpacity>
+            ),
+          })}
+          component={ToDoDetail}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -74,6 +95,9 @@ const styles = StyleSheet.create({
     marginRight: 15,
     padding: 8,
     borderRadius: 5,
+  },
+  editButton: {
+    backgroundColor: 'skyblue',
   },
   createButton: {
     backgroundColor: 'skyblue',
