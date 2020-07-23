@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 @model('todoApp/Item')
 class Item extends Model({
-  id: prop<string>(),
+  id: prop<string>(() => uuidv4()),
   isToModify: prop<boolean>(true),
   isDone: prop<boolean>(false),
   text: prop<string>(''),
