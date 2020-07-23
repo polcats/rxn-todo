@@ -14,12 +14,12 @@ import { appContext } from '../models';
 import { RootStackProp } from '../screens/';
 import Item from '../models/Item';
 
-type TodoItemProps = {
+type ItemDisplayProps = {
   item: Item;
   navigation: RootStackProp;
 };
 
-const ItemDisplay: React.FC<TodoItemProps> = ({ item, navigation }) => {
+const ItemDisplay: React.FC<ItemDisplayProps> = ({ item, navigation }) => {
   const appStore = useContext(appContext);
 
   return (
