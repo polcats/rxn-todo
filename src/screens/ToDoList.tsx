@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react-lite';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
-import { appContext, Item } from '../models/index';
+import { appContext, Item } from '../models/';
 
 const ToDoList: React.FC = () => {
   const store = useContext(appContext);
